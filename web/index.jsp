@@ -41,18 +41,15 @@
             <form method="POST" action="/login">
               <div class="form-group">
                 <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-user"></span>
-                  </div>
                   <input type="text" class="form-control" id="stuNum" name="stuNum" placeholder="邮箱地址">
+                  <div class="input-group-text">
+                    <span>@hacker.com</span>
+                  </div>
                 </div>
               </div>
 
               <div class="form-group">
                 <div class="input-group">
-                  <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-lock"></span>
-                  </div>
                   <input type="password" class="form-control" id="inputPassword" name="password" placeholder="密码">
                 </div>
               </div>

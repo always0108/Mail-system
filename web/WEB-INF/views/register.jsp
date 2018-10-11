@@ -48,27 +48,27 @@
                     <form method="POST" action="/login">
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-user"></span>
+                                <input type="text" class="form-control" id="emailAddress" name="emailAddress" placeholder="邮件地址">
+                                <div class="input-group-text">
+                                    <span>@hacker.com</span>
                                 </div>
-                                <input type="text" class="form-control" id="stuNum" name="stuNum" placeholder="用户名">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                </div>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="真实姓名">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
                                 <input type="password" class="form-control" id="inputPassword" name="password" placeholder="密码">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-lock"></span>
-                                </div>
                                 <input type="password" class="form-control" id="checkPassword" name="checkpassword" placeholder="确认密码">
                             </div>
                         </div>
