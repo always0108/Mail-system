@@ -11,4 +11,9 @@ public class Login {
         return "MainPage";
     }
 
+    @RequestMapping(value = "/register",method = RequestMethod.GET)
+    public String register(){
+        return "register";
+    }
+
 }
