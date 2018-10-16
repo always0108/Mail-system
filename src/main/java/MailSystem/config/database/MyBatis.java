@@ -24,7 +24,7 @@ public class MyBatis {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer(SqlSessionFactoryBean sfb){
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("SFD.dao");
+        mapperScannerConfigurer.setBasePackage("MailSystem.dao");
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sfb");
         return mapperScannerConfigurer;
     }

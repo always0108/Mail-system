@@ -45,7 +45,7 @@
                     注册新邮箱
                 </div>
                 <div class="panel-body" style="padding: 6% 6%;border: 1px solid">
-                    <form method="POST" action="/login">
+                    <form method="POST" action="/register">
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="emailAddress" name="emailAddress" placeholder="邮件地址">
