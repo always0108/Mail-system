@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>主页</title>
+    <title>邮箱系统</title>
     <meta charset='UTF-8'/>
     <meta name="viewport" content="width=device-width,
                                    initial-scale=1.0,
@@ -45,6 +45,9 @@
                     注册新邮箱
                 </div>
                 <div class="panel-body" style="padding: 6% 6%;border: 1px solid">
+
+                    <div id="error" style="color: red">${error}</div>
+
                     <form method="POST" action="/register">
                         <div class="form-group">
                             <div class="input-group">
@@ -90,7 +93,6 @@
     <div class="row" style="height:6%;">
         <div class="col-12" style="padding-top: 4%;padding-bottom:0;text-align: center">版权所有© Copyright 2006-2018 LM</div>
     </div>
-
 </div>
 
 </body>

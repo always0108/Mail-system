@@ -6,16 +6,29 @@ import MailSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
 
+    //获取所有用户信息
+    public List<Users> selectAllUser(){
+        return userDao.selectAllUser();
+    }
+
     //根据邮箱地址获取用户信息
     public Users selectByEmail(String email_address){
         return userDao.selectByEmail(email_address);
     }
+
+    //根据id获取用户信息
+    public Users selectById(Integer id){
+        return userDao.selectById(id);
+    }
+
     //新增用户
     public boolean addUser(Users user){
         //邮件地址不能重复

@@ -4,15 +4,21 @@ import MailSystem.model.Users;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface UserDao {
+    //获取所有用户信息
+    @Select("select * from users")
+    List<Users> selectAllUser();
+
     //根据邮箱地址获取用户信息
-    @Select("select * from employee where email_address = #{email_address}")
+    @Select("select * from users where email_address = #{email_address}")
     Users selectByEmail(String email_address);
 
     //根据id获取用户信息
-    @Select("select * from employee where where id = #{id}")
+    @Select("select * from users where where id = #{id}")
     Users selectById(Integer id);
 
     //新增用户

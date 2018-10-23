@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>主页</title>
+    <title>邮箱系统</title>
     <meta charset='UTF-8'/>
     <meta name="viewport" content="width=device-width,
                                    initial-scale=1.0,
@@ -38,6 +38,9 @@
             登录
           </div>
           <div class="panel-body" style="padding: 6% 6%;border: 1px solid">
+
+            <div id="error" style="color: red">${error}</div>
+
             <form method="POST" action="/login">
               <div class="form-group">
                 <div class="input-group">

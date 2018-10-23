@@ -7,6 +7,13 @@ public class Contacts {
 
     private Integer contact_id;
 
+    public Contacts() { }
+
+    public Contacts(Integer self_id, Integer contact_id) {
+        this.self_id = self_id;
+        this.contact_id = contact_id;
+    }
+
     public Integer getId() {
         return id;
     }
