@@ -3,9 +3,9 @@ package MailSystem.model;
 public class Enclosure {
     private Integer id;
 
-    private String address;
+    private Integer email_id;
 
-    private Integer owner_id;
+    private Integer file_id;
 
     public Integer getId() {
         return id;
@@ -15,19 +15,19 @@ public class Enclosure {
         this.id = id;
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getEmail_id() {
+        return email_id;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setEmail_id(Integer email_id) {
+        this.email_id = email_id;
     }
 
-    public Integer getOwner_id() {
-        return owner_id;
+    public Integer getFile_id() {
+        return file_id;
     }
 
-    public void setOwner_id(Integer owner_id) {
-        this.owner_id = owner_id;
+    public void setFile_id(Integer file_id) {
+        this.file_id = file_id;
     }
 }

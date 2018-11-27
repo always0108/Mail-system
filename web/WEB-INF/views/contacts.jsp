@@ -63,21 +63,22 @@
 
         <div class="col-10">
             <div style="margin: 30px 20px">
-                <form class="form-inline" method="post" action="">
+                <form class="form-inline" method="post" action="/searchContacts">
                     <a href="/contactAdd">
                         <button type="button" class="btn btn-primary">添加</button>
                     </a>
                     <div class="form-group mx-sm-3" style="padding-left: 60px">
-                        <input type="text" class="form-control" id="key" placeholder="请输入关键字">
+                        <input type="text" class="form-control" id="key" name="key" placeholder="请输入关键字">
                     </div>
                     <button type="submit" class="btn btn-primary">搜索</button>
                 </form>
             </div>
 
-                <div style="margin: 20px 0px">${note}</div>
+            <div style="margin: 20px 20px">${note}</div>
 
+            <div style="margin: 20px 20px">
                 <c:if test="${empty contacts}">
-                    暂时没有联系人
+                    暂时没有找到联系人
                 </c:if>
 
                 <c:if test="${not empty contacts}">
@@ -101,6 +102,7 @@
                     </table>
                 </c:if>
             </div>
+
 
         </div>
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,10 +23,25 @@ public class contacts {
     private UserService userService;
 
     @RequestMapping(value = "/contacts",method = RequestMethod.GET)
-    public String contacts(Model model, HttpServletRequest request){
+    public String searchContacts(Model model, HttpServletRequest request){
         Users user = (Users) request.getSession().getAttribute("user");
         List<Users> contacts = contactService.selectAllContacts(user.getId());
         model.addAttribute("contacts",contacts);
+        return "contacts";
+    }
+
+    @RequestMapping(value = "/searchContacts",method = RequestMethod.POST)
+    public String contacts(Model model, HttpServletRequest request,
+                           @RequestParam("key") String key){
+        Users user = (Users) request.getSession().getAttribute("user");
+        List<Users> contacts = contactService.selectAllContacts(user.getId());
+        List<Users> results = new ArrayList<>();
+        for(Users users:contacts){
+            if(users.getName().contains(key) || users.getEmail_address().contains(key)){
+                results.add(users);
+            }
+        }
+        model.addAttribute("contacts",results);
         return "contacts";
     }
 

@@ -62,52 +62,54 @@
 
 
         <div class="col-10">
-            <form action="" id="letterForm">
+            <form method="post" action="/letter/write" id="letterForm">
                 <div style="margin: 30px 20px">
                     <div class="form-group row">
                         <label for="receiver" class="col-1 col-form-label">收件人</label>
                         <div class="col-6">
-                            <input type="text" class="form-control" id="receiver">
+                            <input type="text" class="form-control" id="receiver" name="receiver">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="subject" class="col-1 col-form-label">主题</label>
                         <div class="col-6">
-                            <input type="text" class="form-control" id="subject">
+                            <input type="text" class="form-control" id="subject" name="subject">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="body" class="col-1 col-form-label">正文</label>
                         <div class="col-6">
-                            <textarea name="comment" class="form-control" rows="10" form="letterForm" id="body">请在此处输入文本...</textarea>
+                            <textarea name="content" class="form-control" rows="10" form="letterForm" id="body" placeholder="在此输入文本"></textarea>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="enclosure" class="col-1 col-form-label">附件</label>
-                        <div class="col-6">
-                            <input type="file" class="form-control-file" id="enclosure">
-                        </div>
-                    </div>
-                </div>
-
-                <div style="margin: 0px 95px">
-                    <a href="">
-                        <button type="submit" class="btn btn-primary" style="margin: 30px">发送</button>
-                    </a>
-                    <a>
-                        <button type="button" class="btn btn-primary" style="margin: 30px">存草稿</button>
-                    </a>
-                    <a href="/main">
-                        <button type="button" class="btn btn-primary" style="margin: 30px">关闭</button>
-
-                    </a>
                 </div>
             </form>
 
+            <div style="margin: 30px">
+                <form id= "uploadForm">
+                    <div class="form-group row">
+                        <label class="col-1 col-form-label">选择附件</label>
+                        <input type="file" class="col-4 form-control-file" id="file" name="file"/>
+                        <input type="button" class="col-1 btn btn-success" onclick="UploadFile()" value="上传"/>
+                    </div>
+                </form>
+            </div>
 
+            <div style="margin: 20px 100px">
+                <button type="button" class="col-1 btn btn-primary" style="margin: 30px" onclick="sendLetter()">发送</button>
+
+                <a>
+                    <button type="button" class="col-1 btn btn-primary" style="margin: 30px">存草稿</button>
+                </a>
+                <a href="/main">
+                    <button type="button" class="col-1 btn btn-primary" style="margin: 30px">关闭</button>
+                </a>
+            </div>
         </div>
+
+
 
     </div>
 
@@ -117,5 +119,31 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    function sendLetter() {
+        $("#letterForm").submit();
+    }
+    function UploadFile() {
+        var ajaxUrl = "http://localhost:8080/upload";
+        var form = new FormData($("#uploadForm")[0]);
+        $.ajax({
+            type: "POST",
+            //dataType: "text",
+            url: ajaxUrl,
+            data: form,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                alert("上传成功");
+            },
+            error: function(data) {
+                alert("上传失败");
+            }
+        });
+    }
+</script>
 </body>
 </html>

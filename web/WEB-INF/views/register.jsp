@@ -52,9 +52,6 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="emailAddress" name="emailAddress" placeholder="邮件地址">
-                                <div class="input-group-text">
-                                    <span>@hacker.com</span>
-                                </div>
                             </div>
                         </div>
 

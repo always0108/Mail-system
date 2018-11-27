@@ -31,17 +31,17 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <table schema="general" tableName="EMS.users" domainObjectName="Users"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="general" tableName="EMS.users" domainObjectName="Users"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false" >-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
 
-        <table schema="general" tableName="EMS.contacts" domainObjectName="Contacts"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="general" tableName="EMS.contacts" domainObjectName="Contacts"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false" >-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
 
         <table schema="general" tableName="EMS.email" domainObjectName="Email"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
@@ -56,6 +56,12 @@
         </table>
 
         <table schema="general" tableName="EMS.enclosure" domainObjectName="Enclosure"
+               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" >
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+
+        <table schema="general" tableName="EMS.files" domainObjectName="Files"
                enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >
             <property name="useActualColumnNames" value="true"/>

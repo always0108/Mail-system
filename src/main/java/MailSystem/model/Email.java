@@ -9,7 +9,7 @@ public class Email {
 
     private Integer dir_id;
 
-    private String title;
+    private String subject;
 
     private String content;
 
@@ -45,12 +45,12 @@ public class Email {
         this.dir_id = dir_id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setSubject(String subject) {
+        this.subject = subject == null ? null : subject.trim();
     }
 
     public String getContent() {
