@@ -2,9 +2,12 @@ package MailSystem.ServiceImpl;
 
 import MailSystem.dao.FilesDAO;
 import MailSystem.model.Files;
+import MailSystem.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class FilesServiceImpl {
+@Service
+public class FilesServiceImpl implements FilesService {
     @Autowired
     private FilesDAO filesDAO;
     //获取文件

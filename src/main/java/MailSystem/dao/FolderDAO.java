@@ -2,7 +2,10 @@ package MailSystem.dao;
 
 import MailSystem.model.Folder;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
+@Mapper
+@Repository
 public interface FolderDAO {
     //根据id获取文件
     @Select("select * from folder where id = #{id}")

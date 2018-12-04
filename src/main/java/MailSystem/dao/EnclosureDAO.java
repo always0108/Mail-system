@@ -28,6 +28,7 @@ public interface EnclosureDAO {
     //新增附件
     @Insert("insert into enclosure(email_id,file_id) values " +
             "(#{email_id},#{file_id})")
+
     void addEnclosure(Enclosure enclosure);
 
     //删除附件

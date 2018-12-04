@@ -7,6 +7,11 @@ public class Enclosure {
 
     private Integer file_id;
 
+    public Enclosure(Integer email_id, Integer file_id) {
+        this.email_id = email_id;
+        this.file_id = file_id;
+    }
+
     public Integer getId() {
         return id;
     }

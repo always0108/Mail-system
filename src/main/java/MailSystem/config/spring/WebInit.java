@@ -25,7 +25,7 @@ public class WebInit extends AbstractAnnotationConfigDispatcherServletInitialize
     //Multipart临时缓存的位置及限制
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration){
-        registration.setMultipartConfig(new MultipartConfigElement("/home/limeng/upload",2097152,4194304,0));
+        registration.setMultipartConfig(new MultipartConfigElement("/home/limeng/upload",1024 * 1024 * 8,1024 * 1024 * 100,1024 * 1024 * 8));
     }
 }
 

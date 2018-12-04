@@ -13,6 +13,18 @@ public class Email {
 
     private String content;
 
+    private Boolean is_read;
+
+    private Boolean star;
+
+    public Email(Integer send_id, Integer receive_id, Integer dir_id, String subject, String content) {
+        this.send_id = send_id;
+        this.receive_id = receive_id;
+        this.dir_id = dir_id;
+        this.subject = subject;
+        this.content = content;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +71,21 @@ public class Email {
 
     public void setContent(String content) {
         this.content = content == null ? null : content.trim();
+    }
+
+    public Boolean getIs_read() {
+        return is_read;
+    }
+
+    public void setIs_read(Boolean is_read) {
+        this.is_read = is_read;
+    }
+
+    public Boolean getStar() {
+        return star;
+    }
+
+    public void setStar(Boolean star) {
+        this.star = star;
     }
 }

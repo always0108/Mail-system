@@ -49,23 +49,23 @@
             <property name="useActualColumnNames" value="true"/>
         </table>
 
-        <table schema="general" tableName="EMS.folder" domainObjectName="Folder"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="general" tableName="EMS.folder" domainObjectName="Folder"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false" >-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
 
-        <table schema="general" tableName="EMS.enclosure" domainObjectName="Enclosure"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="general" tableName="EMS.enclosure" domainObjectName="Enclosure"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false" >-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
 
-        <table schema="general" tableName="EMS.files" domainObjectName="Files"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" >
-            <property name="useActualColumnNames" value="true"/>
-        </table>
+        <!--<table schema="general" tableName="EMS.files" domainObjectName="Files"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false" selectByExampleQueryId="false" >-->
+            <!--<property name="useActualColumnNames" value="true"/>-->
+        <!--</table>-->
 
     </context>
 

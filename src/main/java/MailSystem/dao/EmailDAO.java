@@ -25,9 +25,22 @@ public interface EmailDAO {
     List<Email> getSendedEmail(Integer send_id);
 
     //新增邮件
-    @Insert("insert into email(send_id,receive_id,dir_id,subject,content) values " +
-            "(#{send_id},#{receive_id},#{dir_id},#{subject},#{content})")
+    @Insert("insert into email(send_id,receive_id,dir_id,subject,content,is_read,star) values " +
+            "(#{send_id},#{receive_id},#{dir_id},#{subject},#{content},FALSE,FALSE)")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     void addEmail(Email email);
+
+    //星标邮件
+    @Update("update email set star = TRUE where id = #{id}")
+    void star(Integer id);
+
+    //取消星标
+    @Update("update email set star = FALSE where id = #{id}")
+    void cancelStar(Integer id);
+
+    //标为已读
+    @Update("update email set is_read = TRUE where id = #{id}")
+    void readEmail(Integer id);
 
     //删除邮件
     @Delete("delete from email where id = #{id}")

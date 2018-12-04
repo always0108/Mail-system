@@ -19,6 +19,10 @@
     <script src="../../resources/js/jquery-3.3.1.min.js"></script>
     <script src="../../resources/js/popper.js"></script>
     <script src="../../resources/js/bootstrap.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../../resources/css/fileinput.css" />
+    <script type="text/javascript" src="../../resources/js/fileinput.js"></script>
+    <script type="text/javascript" src="../../resources/js/locales/zh.js"></script>
 </head>
 
 <body>
@@ -84,15 +88,18 @@
                             <textarea name="content" class="form-control" rows="10" form="letterForm" id="body" placeholder="在此输入文本"></textarea>
                         </div>
                     </div>
+
+                    <input type="hidden" id="enclosure" name="enclosure" value="">
                 </div>
             </form>
 
             <div style="margin: 30px">
-                <form id= "uploadForm">
+                <form class="form" action="#" method="post" enctype="multipart/form-data"  id="pollutionForm">
                     <div class="form-group row">
                         <label class="col-1 col-form-label">选择附件</label>
-                        <input type="file" class="col-4 form-control-file" id="file" name="file"/>
-                        <input type="button" class="col-1 btn btn-success" onclick="UploadFile()" value="上传"/>
+                        <!-- 注意事项：Input type类型为file class为样式 id随意 name随意
+                         multiple（如果是要多图上传一定要加上，不加的话每次只能选中一张图）-->
+                        <input type="file" class="col-6 file" id="img" multiple name="images"><br>
                     </div>
                 </form>
             </div>
@@ -108,41 +115,53 @@
                 </a>
             </div>
         </div>
-
-
-
     </div>
 
     <%--footer--%>
-    <div class="row" style="height:6%;">
+    <div class="row" style="height:6%;float: bottom" >
         <div class="col-12" style="padding-top: 4%;padding-bottom:0;text-align: center">版权所有© Copyright 2006-2018 LM</div>
     </div>
 
 </div>
 
 <script type="text/javascript">
+    var fileData = []; //多图上传返回的图片属性接受数组
+
+    $("#img").fileinput({
+        language : 'zh',
+        uploadUrl : "/upload",
+        showUpload: true, //是否显示上传按钮
+        showRemove : true, //显示移除按钮
+        showPreview : true, //是否显示预览
+        showCaption: false,//是否显示标题
+        autoReplace : true,
+        minFileCount: 0,
+        uploadAsync: true,
+        maxFileCount: 8,//最大上传数量
+        browseOnZoneClick: true,
+        msgFilesTooMany: "选择上传的文件数量 超过允许的最大数值！",
+        enctype: 'multipart/form-data',
+        // overwriteInitial: false,//不覆盖已上传的图片
+        allowedFileExtensions : [ "rar", "zip", "pdf", "rar", "zip", "rar", "jpg", "jpeg", "png", "gif" ],
+        browseClass : "btn btn-primary", //按钮样式
+        previewFileIcon : "<i class='glyphicon glyphicon-king'></i>"
+    }).on("fileuploaded", function(e, data) {//文件上传成功的回调函数，还有其他的一些回调函数，比如上传之前...
+        var res = data.response;
+        console.log(res.name);
+        console.log(res.id);
+        fileData.push(res.id);
+    });
+
     function sendLetter() {
+        if(fileData.length > 0){
+            var result = fileData[0].toString();
+            for(var i = 1; i < fileData.length;i++)
+                result = result + "+" + fileData[i].toString();
+            $("#enclosure").val(result);
+        }else{
+            $("#enclosure").val("null");
+        }
         $("#letterForm").submit();
-    }
-    function UploadFile() {
-        var ajaxUrl = "http://localhost:8080/upload";
-        var form = new FormData($("#uploadForm")[0]);
-        $.ajax({
-            type: "POST",
-            //dataType: "text",
-            url: ajaxUrl,
-            data: form,
-            async: false,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                alert("上传成功");
-            },
-            error: function(data) {
-                alert("上传失败");
-            }
-        });
     }
 </script>
 </body>
