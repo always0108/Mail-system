@@ -10,19 +10,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/contact")
 public class contacts {
     @Autowired
     private ContactService contactService;
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/contacts",method = RequestMethod.GET)
+    @RequestMapping(value = "/getContacts",method = RequestMethod.GET)
     public String searchContacts(Model model, HttpServletRequest request){
         Users user = (Users) request.getSession().getAttribute("user");
         List<Users> contacts = contactService.selectAllContacts(user.getId());

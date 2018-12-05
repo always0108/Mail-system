@@ -7,10 +7,10 @@
                                    initial-scale=1.0,
                                    maximum-scale=1.0,
                                    user-scalable=no" />
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <script src="resources/js/jquery-3.3.1.min.js"></script>
-    <script src="resources/js/popper.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <link href="../../resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../../resources/bootstrap/js/jquery-3.3.1.min.js"></script>
+    <script src="../../resources/bootstrap/js/popper.js"></script>
+    <script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -39,7 +39,7 @@
             <div style="padding: 10% 15%">
                 <div><a href="/letter/write">写信</a></div>
                 <div><a href="">收信</a></div>
-                <div><a href="/contacts">通讯录</a></div>
+                <div><a href="/contact/getContacts">通讯录</a></div>
             </div>
 
             <hr>
@@ -57,7 +57,7 @@
             <div>
                 <h3 style="margin-bottom: 40px">添加联系人</h3>
                 <div style="margin-bottom: 20px">${note}</div>
-                <form method="post" action="/contactAdd">
+                <form method="post" action="/contact/contactAdd">
                     <div class="form-group">
                         <input type="text" class="form-control" name="name" placeholder="姓名">
                     </div>
@@ -68,7 +68,7 @@
 
                     <div style="margin-top: 20px">
                         <button type="submit" class="btn btn-primary">确认</button>
-                        <a href="/contacts">
+                        <a href="/contact/getContacts">
                             <button type="button" class="btn btn-primary" style="margin-left: 50px">返回</button>
                         </a>
                     </div>

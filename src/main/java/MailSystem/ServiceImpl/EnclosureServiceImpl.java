@@ -19,12 +19,12 @@ public class EnclosureServiceImpl implements EnclosureService {
 
     //根据内容获取附件
     public Enclosure getEnclosureByInfo(Enclosure enclosure){
-        return getEnclosureByInfo(enclosure);
+        return enclosureDAO.getEnclosureByInfo(enclosure);
     }
 
     //根据邮件提取所含附件
     public List<Enclosure> getEnclosureListByEmail(Integer email_id){
-        return getEnclosureListByEmail(email_id);
+        return enclosureDAO.getEnclosureListByEmail(email_id);
     }
 
     //删除邮件中包含的附件
@@ -34,11 +34,11 @@ public class EnclosureServiceImpl implements EnclosureService {
 
     //新增附件
     public void addEnclosure(Enclosure enclosure){
-        addEnclosure(enclosure);
+        enclosureDAO.addEnclosure(enclosure);
     }
 
     //删除附件
     public void deleteEnclosure(Integer id) {
-        deleteEnclosure(id);
+        enclosureDAO.deleteEnclosure(id);
     }
 }

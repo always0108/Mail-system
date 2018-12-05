@@ -4,6 +4,7 @@ import MailSystem.model.Email;
 import MailSystem.model.Enclosure;
 import MailSystem.model.Users;
 import MailSystem.service.EmailService;
+import MailSystem.service.EnclosureService;
 import MailSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,8 @@ public class letter {
     private UserService userService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private EnclosureService enclosureService;
 
     @RequestMapping(value = "/write",method = RequestMethod.GET)
     public String getWritePage(){
@@ -38,23 +41,20 @@ public class letter {
         if(rece == null){
             return "联系人不存在";
         }
-
+        //存入邮件
         Users sender = (Users) request.getSession().getAttribute("user");
-        System.out.println("发件人ID："+sender.getId());
-        System.out.println("收件人ID："+rece.getId());
-        System.out.println("主题："+subject);
-        System.out.println("内容："+content);
-
         Email email = new Email(sender.getId(),rece.getId(),0,subject,content);
         emailService.addEmail(email);
-        System.out.println("邮件ID："+email.getId());
-
-        Integer email_id = email.getId();
-        String[] nums = enclosures.split("\\+");
-        System.out.println("附件ID：");
-        for(String num:nums){
-            System.out.println(num);
-            Enclosure enclosure = new Enclosure(email_id,Integer.parseInt(num));
+        if(enclosures.equals("null")){
+            //附件为空
+        }else{
+            //附件不为空
+            Integer email_id = email.getId();
+            String[] nums = enclosures.split("\\+");
+            for(String num:nums){
+                Enclosure enclosure = new Enclosure(email_id,Integer.parseInt(num));
+                enclosureService.addEnclosure(enclosure);
+            }
         }
         return "发送成功";
     }
