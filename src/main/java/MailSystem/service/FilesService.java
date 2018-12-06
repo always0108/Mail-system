@@ -1,6 +1,6 @@
 package MailSystem.service;
 
-import MailSystem.model.Files;
+import MailSystem.model.pv.Files;
 
 public interface FilesService {
     //获取文件

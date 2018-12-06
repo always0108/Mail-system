@@ -1,4 +1,4 @@
-package MailSystem.model;
+package MailSystem.model.pv;
 
 public class Users {
     private int id;
@@ -8,6 +8,9 @@ public class Users {
     private String name;
 
     private String passwd;
+
+    public Users() {
+    }
 
     public int getId() {
         return id;

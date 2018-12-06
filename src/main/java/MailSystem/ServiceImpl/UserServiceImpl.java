@@ -1,7 +1,7 @@
 package MailSystem.ServiceImpl;
 
 import MailSystem.dao.UserDao;
-import MailSystem.model.Users;
+import MailSystem.model.pv.Users;
 import MailSystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

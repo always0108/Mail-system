@@ -1,7 +1,7 @@
 package MailSystem.dao;
 
-import MailSystem.model.Contacts;
-import MailSystem.model.Users;
+import MailSystem.model.pv.Contacts;
+import MailSystem.model.pv.Users;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

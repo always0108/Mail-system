@@ -1,4 +1,4 @@
-package MailSystem.model;
+package MailSystem.model.pv;
 
 public class Contacts {
     private Integer id;

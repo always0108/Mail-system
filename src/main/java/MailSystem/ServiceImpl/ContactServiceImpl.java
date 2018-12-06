@@ -1,8 +1,8 @@
 package MailSystem.ServiceImpl;
 
 import MailSystem.dao.ContactsDao;
-import MailSystem.model.Contacts;
-import MailSystem.model.Users;
+import MailSystem.model.pv.Contacts;
+import MailSystem.model.pv.Users;
 import MailSystem.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

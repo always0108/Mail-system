@@ -1,6 +1,6 @@
 package MailSystem.service;
 
-import MailSystem.model.Enclosure;
+import MailSystem.model.pv.Enclosure;
 
 import java.util.List;
 

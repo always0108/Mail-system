@@ -38,7 +38,7 @@
         <div class="col-2" style="padding-left: 0;border-right: 1px solid">
             <div style="padding: 10% 15%">
                 <div><a href="/letter/write">写信</a></div>
-                <div><a href="">收信</a></div>
+                <div><a href="/letter/inbox">收信</a></div>
                 <div><a href="/contact/getContacts">通讯录</a></div>
             </div>
 

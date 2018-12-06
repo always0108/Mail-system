@@ -1,6 +1,7 @@
 package MailSystem.service;
 
-import MailSystem.model.Email;
+import MailSystem.model.ov.EmailItem;
+import MailSystem.model.pv.Email;
 import java.util.List;
 
 public interface EmailService {
@@ -8,7 +9,7 @@ public interface EmailService {
     Email getEmailById(Integer id);
 
     //根据用户和文件夹获取相应邮件
-    List<Email> getReceivedEmailByDir(Integer receive_id, Integer dir_id);
+    List<EmailItem> getReceivedEmailByDir(Integer receive_id, Integer dir_id);
 
     //根据用户获取所发送的邮件
     List<Email> getSendedEmail(Integer send_id);

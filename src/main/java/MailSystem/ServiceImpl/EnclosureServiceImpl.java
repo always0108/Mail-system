@@ -1,7 +1,7 @@
 package MailSystem.ServiceImpl;
 
 import MailSystem.dao.EnclosureDAO;
-import MailSystem.model.Enclosure;
+import MailSystem.model.pv.Enclosure;
 import MailSystem.service.EnclosureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

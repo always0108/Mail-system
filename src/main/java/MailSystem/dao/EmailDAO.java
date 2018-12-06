@@ -1,6 +1,6 @@
 package MailSystem.dao;
 
-import MailSystem.model.Email;
+import MailSystem.model.pv.Email;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,7 @@ public interface EmailDAO {
 
     //根据用户和文件夹获取相应邮件
     @Select("select * from email where receive_id = #{receive_id} and " +
-            "dir_id = #{dir_id}")
+            "dir_id = #{dir_id} order by time desc")
     List<Email> getReceivedEmailByDir(
             @Param("receive_id")Integer receive_id,
             @Param("dir_id")Integer dir_id);
@@ -25,8 +25,8 @@ public interface EmailDAO {
     List<Email> getSendedEmail(Integer send_id);
 
     //新增邮件
-    @Insert("insert into email(send_id,receive_id,dir_id,subject,content,is_read,star) values " +
-            "(#{send_id},#{receive_id},#{dir_id},#{subject},#{content},FALSE,FALSE)")
+    @Insert("insert into email(send_id,receive_id,dir_id,subject,content,is_read,star,time) values " +
+            "(#{send_id},#{receive_id},#{dir_id},#{subject},#{content},FALSE,FALSE,#{time})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     void addEmail(Email email);
 
@@ -38,7 +38,7 @@ public interface EmailDAO {
     @Update("update email set star = FALSE where id = #{id}")
     void cancelStar(Integer id);
 
-    //标为已读
+    //标为已读，状态码为2
     @Update("update email set is_read = TRUE where id = #{id}")
     void readEmail(Integer id);
 

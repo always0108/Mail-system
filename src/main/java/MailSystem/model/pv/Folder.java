@@ -1,15 +1,13 @@
-package MailSystem.model;
+package MailSystem.model.pv;
 
-public class Files {
+public class Folder {
     private Integer id;
 
     private String name;
 
-    private String address;
+    private Integer owner_id;
 
-    public Files(String name, String address) {
-        this.name = name;
-        this.address = address;
+    public Folder() {
     }
 
     public Integer getId() {
@@ -28,11 +26,11 @@ public class Files {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public Integer getOwner_id() {
+        return owner_id;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setOwner_id(Integer owner_id) {
+        this.owner_id = owner_id;
     }
 }

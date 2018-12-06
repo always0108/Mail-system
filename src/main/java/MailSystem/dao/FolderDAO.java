@@ -1,6 +1,6 @@
 package MailSystem.dao;
 
-import MailSystem.model.Folder;
+import MailSystem.model.pv.Folder;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

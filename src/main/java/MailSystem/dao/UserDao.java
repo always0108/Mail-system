@@ -1,6 +1,6 @@
 package MailSystem.dao;
 
-import MailSystem.model.Users;
+import MailSystem.model.pv.Users;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public interface UserDao {
     Users selectByEmail(String email_address);
 
     //根据id获取用户信息
-    @Select("select * from users where where id = #{id}")
+    @Select("select * from users where id = #{id}")
     Users selectById(Integer id);
 
     //新增用户

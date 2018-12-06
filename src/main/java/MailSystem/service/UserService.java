@@ -1,6 +1,6 @@
 package MailSystem.service;
 
-import MailSystem.model.Users;
+import MailSystem.model.pv.Users;
 import java.util.List;
 
 public interface UserService {

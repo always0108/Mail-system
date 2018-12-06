@@ -1,4 +1,6 @@
-package MailSystem.model;
+package MailSystem.model.pv;
+
+import java.util.Date;
 
 public class Email {
     private Integer id;
@@ -17,12 +19,18 @@ public class Email {
 
     private Boolean star;
 
-    public Email(Integer send_id, Integer receive_id, Integer dir_id, String subject, String content) {
+    private Date time;
+
+    public Email() {
+    }
+
+    public Email(Integer send_id, Integer receive_id, Integer dir_id, String subject, String content, Date time) {
         this.send_id = send_id;
         this.receive_id = receive_id;
         this.dir_id = dir_id;
         this.subject = subject;
         this.content = content;
+        this.time = time;
     }
 
     public Integer getId() {
@@ -87,5 +95,13 @@ public class Email {
 
     public void setStar(Boolean star) {
         this.star = star;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

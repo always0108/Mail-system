@@ -1,6 +1,6 @@
 package MailSystem.service;
 
-import MailSystem.model.Folder;
+import MailSystem.model.pv.Folder;
 
 public interface FolderService {
     //根据id获取文件

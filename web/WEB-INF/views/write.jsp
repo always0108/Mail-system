@@ -50,7 +50,7 @@
         <div class="col-2" style="padding-left: 0;border-right: 1px solid">
             <div style="padding: 10% 15%">
                 <div><a href="/letter/write">写信</a></div>
-                <div><a href="">收信</a></div>
+                <div><a href="/letter/inbox">收信</a></div>
                 <div><a href="/contact/getContacts">通讯录</a></div>
             </div>
 
@@ -89,7 +89,8 @@
                         </div>
                     </div>
 
-                    <input type="hidden" id="enclosure" name="enclosure" value="">
+                    <input type="hidden" id="enclosure" name="enclosure">
+                    <input type="hidden" id="type" name="type">
                 </div>
             </form>
 
@@ -111,25 +112,17 @@
                     <label class="col-1 col-form-label"></label>
 
                     <div class="col-8">
-                        <button type="button" class="col-2 btn btn-primary" style="margin-right: 40px" onclick="sendLetter()">发送</button>
-                        <a>
-                            <button type="button" class="col-2 btn btn-primary" style="margin-right: 40px">存草稿</button>
-                        </a>
+                        <button type="button" class="col-2 btn btn-primary" style="margin-right: 40px" onclick="send(0)">发送</button>
+
+                        <button type="button" class="col-2 btn btn-primary" style="margin-right: 40px" onclick="send(1)">存草稿</button>
 
                         <a href="/main">
                             <button type="button" class="col-2 btn btn-primary">关闭</button>
                         </a>
-
                     </div>
                 </div>
             </div>
         </div>
-
-    <%--&lt;%&ndash;footer&ndash;%&gt;--%>
-    <%--<div class="row" style="height:6%;float: bottom" >--%>
-        <%--<div class="col-12" style="padding-top: 4%;padding-bottom:0;text-align: center">版权所有© Copyright 2006-2018 LM</div>--%>
-    <%--</div>--%>
-
 </div>
 
 <script type="text/javascript">
@@ -158,7 +151,8 @@
         fileData.push(res.id);
     });
 
-    function sendLetter() {
+    function send(type) {
+        $("#type").val(type);
         if(fileData.length > 0){
             var result = "";
             result = result + fileData[0];
@@ -169,8 +163,6 @@
             $("#enclosure").val("null");
         }
         for(var i = 0; i < fileData.length;i++) console.log(fileData[i]);
-        console.log(fileData.length);
-        console.log($("#enclosure").val());
         $("#letterForm").submit();
     }
 </script>

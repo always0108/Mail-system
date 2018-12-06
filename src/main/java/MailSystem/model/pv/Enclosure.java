@@ -1,4 +1,4 @@
-package MailSystem.model;
+package MailSystem.model.pv;
 
 public class Enclosure {
     private Integer id;
@@ -6,6 +6,9 @@ public class Enclosure {
     private Integer email_id;
 
     private Integer file_id;
+
+    public Enclosure() {
+    }
 
     public Enclosure(Integer email_id, Integer file_id) {
         this.email_id = email_id;

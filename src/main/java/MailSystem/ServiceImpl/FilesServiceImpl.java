@@ -1,7 +1,7 @@
 package MailSystem.ServiceImpl;
 
 import MailSystem.dao.FilesDAO;
-import MailSystem.model.Files;
+import MailSystem.model.pv.Files;
 import MailSystem.service.FilesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

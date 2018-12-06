@@ -26,7 +26,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="MailSystem.model" targetProject="/home/limeng/git/Mail-system/src/main/java/">
+        <javaModelGenerator targetPackage="MailSystem.model" targetProject="/home/limeng/Mail-system/src/main/java/">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>

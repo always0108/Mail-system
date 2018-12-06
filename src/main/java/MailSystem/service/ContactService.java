@@ -1,7 +1,7 @@
 package MailSystem.service;
 
-import MailSystem.model.Contacts;
-import MailSystem.model.Users;
+import MailSystem.model.pv.Contacts;
+import MailSystem.model.pv.Users;
 
 import java.util.List;
 

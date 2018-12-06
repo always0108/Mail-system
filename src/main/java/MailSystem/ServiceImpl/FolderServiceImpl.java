@@ -1,7 +1,7 @@
 package MailSystem.ServiceImpl;
 
 import MailSystem.dao.FolderDAO;
-import MailSystem.model.Folder;
+import MailSystem.model.pv.Folder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
