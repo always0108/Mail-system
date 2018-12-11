@@ -45,10 +45,10 @@
             <hr>
 
             <div style="padding: 10% 15%">
-                <div><a href="">收件箱</a></div>
-                <div><a href="">星标邮件</a></div>
+                <div><a href="/letter/inbox">收件箱</a></div>
+                <div><a href="/letter/star">星标邮件</a></div>
                 <div><a href="">草稿箱</a></div>
-                <div><a href="">垃圾箱</a></div>
+                <div><a href="/letter/garbage">垃圾箱</a></div>
             </div>
 
         </div>

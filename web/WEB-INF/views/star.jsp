@@ -59,85 +59,75 @@
             <div style="margin: 20px 20px">
                 <div class="center">
                     <span>
-                        收件箱 (共 ${emailItems.size()} 封，其中未读邮件 ${unReadSum} 封)
+                        所有星标邮件 (共 ${emailItems.size()} 封)
                     </span>
+
                     <c:if test="${not empty emailItems}">
                     <!-- 功能按钮 -->
                     <div style="margin-top: 20px">
-                        <form id="funForm" class="functionButton" action="/letter/manageCheckedEmail" method="post">
-                            <button type="button" class="btn btn-sm" onclick="manageEmail(1)">删除</button>
-                            <button type="button" class="btn btn-sm" onclick="manageEmail(2)">星标</button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                                    移动到...
-                                    <span class="caret"></span>
-                                </button>
-                            </div>
-
+                        <form id="funForm" class="functionButton" action="/letter/cancelStarCheckedEmail" method="post">
+                            <button type="button" class="btn btn-sm" onclick="cancelStar()">取消星标</button>
                             <input type="hidden" id="checkedList" name="checkedList">
                             <input type="hidden" id="type" name="type">
                         </form>
                     </div>
-
-                    <div class="amail">
-                        <table class="table">
-                            <tr>
-                                <th width="5%">
-                                    <div class="checkbox disabled">
-                                        <label><input type="checkbox" value="" onclick="swapCheck()"></label>
-                                    </div>
-                                </th>
-                                <th width="10%"></th>
-                                <th width="20%">发件人</th>
-                                <th width="20%">主题</th>
-                                <th width="20%">时间</th>
-                                <th width="10%"></th>
-                            </tr>
-                            <c:forEach items="${emailItems}" var="emailItem">
-                            <tr>
-                                <td>
-                                    <div class="checkbox disabled">
-                                        <label><input type="checkbox" value="${emailItem.id}" name="chk_list"></label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="/letter/getEmailById?id=${emailItem.id}">
-                                        <img src="../../resources/assets/email.png" style="display:inline-block;width:20%">
-                                    </a>
-                                </td>
-                                <c:choose>
-                                    <c:when test="${emailItem.is_read == false}">
-                                        <td style="font-weight: bold">${emailItem.sender} (${emailItem.email_address})</td>
-                                        <td style="font-weight: bold">${emailItem.subject}</td>
-                                        <td style="font-weight: bold">${emailItem.time}</td>
-                                    </c:when>
-
-                                    <c:when test="${emailItem.is_read == true}">
-                                        <td style="color: #4e555b">${emailItem.sender} (${emailItem.email_address})</td>
-                                        <td style="color: #4e555b">${emailItem.subject}</td>
-                                        <td style="color: #4e555b">${emailItem.time}</td>
-                                    </c:when>
-                                </c:choose>
-
-                                <c:choose>
-                                    <c:when test="${emailItem.star == false}">
+                        <div class="amail">
+                            <table class="table">
+                                <tr>
+                                    <th width="5%">
+                                        <div class="checkbox disabled">
+                                            <label><input type="checkbox" value="" onclick="swapCheck()"></label>
+                                        </div>
+                                    </th>
+                                    <th width="10%"></th>
+                                    <th width="20%">发件人</th>
+                                    <th width="20%">主题</th>
+                                    <th width="20%">时间</th>
+                                    <th width="10%"></th>
+                                </tr>
+                                <c:forEach items="${emailItems}" var="emailItem">
+                                    <tr>
                                         <td>
-                                            <img src="../../resources/assets/unstar.png" style="display:inline-block;width:20%">
+                                            <div class="checkbox disabled">
+                                                <label><input type="checkbox" value="${emailItem.id}" name="chk_list"></label>
+                                            </div>
                                         </td>
-                                    </c:when>
-
-                                    <c:when test="${emailItem.star == true}">
                                         <td>
-                                            <img src="../../resources/assets/star.png" style="display:inline-block;width:20%">
+                                            <a href="/letter/getEmailById?id=${emailItem.id}">
+                                                <img src="../../resources/assets/email.png" style="display:inline-block;width:20%">
+                                            </a>
                                         </td>
-                                    </c:when>
-                                </c:choose>
+                                        <c:choose>
+                                            <c:when test="${emailItem.is_read == false}">
+                                                <td style="font-weight: bold">${emailItem.sender} (${emailItem.email_address})</td>
+                                                <td style="font-weight: bold">${emailItem.subject}</td>
+                                                <td style="font-weight: bold">${emailItem.time}</td>
+                                            </c:when>
 
+                                            <c:when test="${emailItem.is_read == true}">
+                                                <td style="color: #4e555b">${emailItem.sender} (${emailItem.email_address})</td>
+                                                <td style="color: #4e555b">${emailItem.subject}</td>
+                                                <td style="color: #4e555b">${emailItem.time}</td>
+                                            </c:when>
+                                        </c:choose>
 
-                            </tr>
-                            </c:forEach>
-                        </table>
-                    </div>
+                                        <c:choose>
+                                            <c:when test="${emailItem.star == false}">
+                                                <td>
+                                                    <img src="../../resources/assets/unstar.png" style="display:inline-block;width:20%">
+                                                </td>
+                                            </c:when>
+
+                                            <c:when test="${emailItem.star == true}">
+                                                <td>
+                                                    <img src="../../resources/assets/star.png" style="display:inline-block;width:20%">
+                                                </td>
+                                            </c:when>
+                                        </c:choose>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        </div>
                     </c:if>
                 </div>
             </div>
@@ -185,11 +175,10 @@
         }
     }
 
-    function manageEmail(type) {
+    function cancelStar() {
         checked_list = "";
         findChecked();
         if(checked_list != ""){
-            $("#type").val(type);
             $("#funForm").submit();
         }
     }

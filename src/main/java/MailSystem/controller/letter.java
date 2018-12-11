@@ -7,6 +7,7 @@ import MailSystem.model.pv.Users;
 import MailSystem.service.EmailService;
 import MailSystem.service.EnclosureService;
 import MailSystem.service.UserService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -34,6 +36,13 @@ public class letter {
     @RequestMapping(value = "/write",method = RequestMethod.GET)
     public String getWritePage(){
         return "write";
+    }
+
+    @RequestMapping(value = "/reply",method = RequestMethod.GET)
+    public String getReplyPage(@RequestParam("receiver") String receiver,
+                               Model model){
+        model.addAttribute("receiver",receiver);
+        return "reply";
     }
 
     @RequestMapping(value = "/write",method = RequestMethod.POST)
@@ -78,7 +87,104 @@ public class letter {
     public String getInbox(HttpServletRequest request, Model model){
         Users user = (Users) request.getSession().getAttribute("user");
         List<EmailItem> emailItems = emailService.getReceivedEmailByDir(user.getId(),0);
+        Integer unReadSum = 0;
+        for (EmailItem emailItem:emailItems){
+            if(emailItem.getIs_read() == false){
+                unReadSum++;
+            }
+        }
+        model.addAttribute("unReadSum",unReadSum);
         model.addAttribute("emailItems",emailItems);
         return "inbox";
+    }
+
+    @RequestMapping(value = "/getEmailById",method = RequestMethod.GET)
+    public String getEmailById(@Param("id") Integer id, Model model){
+        EmailItem emailItem = emailService.getEmailById(id);
+        if(emailItem.getIs_read() == false){
+            emailService.readEmail(id);
+        }
+        model.addAttribute("emailItem",emailItem);
+        return "EmailDetail";
+    }
+
+    @RequestMapping(value = "/manageCheckedEmail",method = RequestMethod.POST)
+    public String manageEmail(HttpServletRequest request,
+                              @Param("checkedList") String checkedList,
+                              @RequestParam("type")String type,
+                              Model model){
+
+        String[] emailsID = checkedList.split("\\+");
+        if(type.equals("1")){   //移动到垃圾箱
+            for(String email_id:emailsID){
+                emailService.moveEmail(Integer.parseInt(email_id),2);
+            }
+        }else if(type.equals("2")){ //星标邮件
+            for(String email_id:emailsID){
+                emailService.star(Integer.parseInt(email_id));
+            }
+        }else if(type.equals("3")){ //取消星标
+            for(String email_id:emailsID){
+                emailService.cancelStar(Integer.parseInt(email_id));
+            }
+        } else if(type.equals("3")){ //移动到其他文件夹
+
+        }
+        return "redirect:/letter/inbox";
+    }
+
+
+    @RequestMapping(value = "/star",method = RequestMethod.GET)
+    public String getStarEmail(HttpServletRequest request, Model model){
+        Users user = (Users) request.getSession().getAttribute("user");
+        List<EmailItem> emailItems = emailService.getReceivedEmailByDir(user.getId(),0);
+        Iterator<EmailItem> itemIterator = emailItems.iterator();
+        while(itemIterator.hasNext()){
+            EmailItem emailItem = itemIterator.next();
+            if(emailItem.getStar() == false){
+                itemIterator.remove();
+            }
+        }
+        model.addAttribute("emailItems",emailItems);
+        return "star";
+    }
+
+    @RequestMapping(value = "/cancelStarCheckedEmail",method = RequestMethod.POST)
+    public String cancelStarEmail(HttpServletRequest request,
+                               @Param("checkedList") String checkedList,
+                               @RequestParam("type")String type,
+                               Model model) {
+        String[] emailsID = checkedList.split("\\+");
+        for (String email_id : emailsID) {
+            emailService.cancelStar(Integer.parseInt(email_id));
+        }
+        return "redirect:/letter/star";
+    }
+
+
+    @RequestMapping(value = "/garbage",method = RequestMethod.GET)
+    public String getGarbage(HttpServletRequest request, Model model){
+        Users user = (Users) request.getSession().getAttribute("user");
+        List<EmailItem> emailItems = emailService.getReceivedEmailByDir(user.getId(),2);
+        model.addAttribute("emailItems",emailItems);
+        return "garbage";
+    }
+
+    @RequestMapping(value = "/manageGarbage",method = RequestMethod.POST)
+    public String manageGarbage(HttpServletRequest request,
+                              @Param("checkedList") String checkedList,
+                              @RequestParam("type")String type,
+                              Model model){
+        String[] emailsID = checkedList.split("\\+");
+        if(type.equals("1")){       //彻底删除
+            for(String email_id:emailsID){
+                emailService.deleteEmail(Integer.parseInt(email_id));
+            }
+        }else if(type.equals("2")){ //恢复邮件
+            for(String email_id:emailsID){
+                emailService.moveEmail(Integer.parseInt(email_id),0);
+            }
+        }
+        return "redirect:/letter/garbage";
     }
 }

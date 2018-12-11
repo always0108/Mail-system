@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EmailService {
     //根据id获取邮件
-    Email getEmailById(Integer id);
+    EmailItem getEmailById(Integer id);
 
     //根据用户和文件夹获取相应邮件
     List<EmailItem> getReceivedEmailByDir(Integer receive_id, Integer dir_id);
@@ -21,7 +21,7 @@ public interface EmailService {
     void deleteEmail(Integer id);
 
     //移动邮件
-    void updateEmail(Email email);
+    void moveEmail(Integer id, Integer dir_id);
 
     //星标邮件
     void star(Integer id);

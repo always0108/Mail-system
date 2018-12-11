@@ -71,7 +71,7 @@
                     <div class="form-group row">
                         <label for="receiver" class="col-1 col-form-label">收件人</label>
                         <div class="col-10">
-                            <input type="text" class="form-control" id="receiver" name="receiver">
+                            <input type="text" class="form-control" id="receiver" name="receiver" readonly value="${receiver}">
                         </div>
                     </div>
 
@@ -123,48 +123,48 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
-<script type="text/javascript">
-    var fileData = new Array(); //多图上传返回的图片属性接受数组
+    <script type="text/javascript">
+        var fileData = new Array(); //多图上传返回的图片属性接受数组
 
-    $("#img").fileinput({
-        language : 'zh',
-        uploadUrl : "file/upload",
-        showUpload: true, //是否显示上传按钮
-        showRemove : true, //显示移除按钮
-        showPreview : true, //是否显示预览
-        showCaption: false,//是否显示标题
-        autoReplace : true,
-        minFileCount: 0,
-        uploadAsync: true,
-        maxFileCount: 8,//最大上传数量
-        browseOnZoneClick: true,
-        msgFilesTooMany: "选择上传的文件数量 超过允许的最大数值！",
-        enctype: 'multipart/form-data',
-        // overwriteInitial: false,//不覆盖已上传的图片
-        allowedFileExtensions : [ "rar", "zip", "pdf", "rar", "zip", "rar", "jpg", "jpeg", "png", "gif" ],
-        browseClass : "btn btn-primary", //按钮样式
-        previewFileIcon : "<i class='glyphicon glyphicon-king'></i>"
-    }).on("fileuploaded", function(e, data) {//文件上传成功的回调函数，还有其他的一些回调函数，比如上传之前...
-        var res = data.response;
-        fileData.push(res.id);
-    });
+        $("#img").fileinput({
+            language : 'zh',
+            uploadUrl : "file/upload",
+            showUpload: true, //是否显示上传按钮
+            showRemove : true, //显示移除按钮
+            showPreview : true, //是否显示预览
+            showCaption: false,//是否显示标题
+            autoReplace : true,
+            minFileCount: 0,
+            uploadAsync: true,
+            maxFileCount: 8,//最大上传数量
+            browseOnZoneClick: true,
+            msgFilesTooMany: "选择上传的文件数量 超过允许的最大数值！",
+            enctype: 'multipart/form-data',
+            // overwriteInitial: false,//不覆盖已上传的图片
+            allowedFileExtensions : [ "rar", "zip", "pdf", "rar", "zip", "rar", "jpg", "jpeg", "png", "gif" ],
+            browseClass : "btn btn-primary", //按钮样式
+            previewFileIcon : "<i class='glyphicon glyphicon-king'></i>"
+        }).on("fileuploaded", function(e, data) {//文件上传成功的回调函数，还有其他的一些回调函数，比如上传之前...
+            var res = data.response;
+            fileData.push(res.id);
+        });
 
-    function send(type) {
-        $("#type").val(type);
-        if(fileData.length > 0){
-            var result = "";
-            result = result + fileData[0];
-            for(var i = 1; i < fileData.length;i++)
-                result = result + "+" + fileData[i];
-            $("#enclosure").val(result);
-        }else{
-            $("#enclosure").val("null");
+        function send(type) {
+            $("#type").val(type);
+            if(fileData.length > 0){
+                var result = "";
+                result = result + fileData[0];
+                for(var i = 1; i < fileData.length;i++)
+                    result = result + "+" + fileData[i];
+                $("#enclosure").val(result);
+            }else{
+                $("#enclosure").val("null");
+            }
+            for(var i = 0; i < fileData.length;i++) console.log(fileData[i]);
+            $("#letterForm").submit();
         }
-        for(var i = 0; i < fileData.length;i++) console.log(fileData[i]);
-        $("#letterForm").submit();
-    }
-</script>
+    </script>
 </body>
 </html>

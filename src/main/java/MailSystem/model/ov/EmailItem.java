@@ -1,6 +1,7 @@
 package MailSystem.model.ov;
 
 import MailSystem.model.pv.Enclosure;
+import MailSystem.model.pv.Files;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class EmailItem {
 
     private String time;
 
-    private List<Enclosure> enclosures;
+    private List<Files> enclosures;
 
     public EmailItem() {
     }
@@ -90,11 +91,11 @@ public class EmailItem {
         this.time = time;
     }
 
-    public List<Enclosure> getEnclosures() {
+    public List<Files> getEnclosures() {
         return enclosures;
     }
 
-    public void setEnclosures(List<Enclosure> enclosures) {
+    public void setEnclosures(List<Files> enclosures) {
         this.enclosures = enclosures;
     }
 }

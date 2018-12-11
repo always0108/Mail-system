@@ -48,5 +48,6 @@ public interface EmailDAO {
 
     //移动邮件
     @Update("update email set dir_id = #{dir_id} where id = #{id}")
-    void updateEmail(Email email);
+    void moveEmail(@Param("id")Integer id,
+                   @Param("dir_id")Integer dir_id);
 }
