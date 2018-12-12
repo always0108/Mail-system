@@ -10,6 +10,12 @@ public class Folder {
     public Folder() {
     }
 
+    public Folder(Integer id, String name, Integer owner_id) {
+        this.id = id;
+        this.name = name;
+        this.owner_id = owner_id;
+    }
+
     public Integer getId() {
         return id;
     }

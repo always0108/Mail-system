@@ -2,11 +2,14 @@ package MailSystem.ServiceImpl;
 
 import MailSystem.dao.FolderDAO;
 import MailSystem.model.pv.Folder;
+import MailSystem.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class FolderServiceImpl {
+public class FolderServiceImpl implements FolderService {
     @Autowired
     private FolderDAO folderDAO;
 
@@ -21,7 +24,7 @@ public class FolderServiceImpl {
     }
 
     //根据用户文件夹列表
-    public Folder getFolderListByOwner(Integer owner_id){
+    public List<Folder> getFolderListByOwner(Integer owner_id){
         return folderDAO.getFolderListByOwner(owner_id);
     }
 
@@ -41,7 +44,7 @@ public class FolderServiceImpl {
     }
 
     //修改文件夹名称
-    public void updateEmail(Folder folder){
+    public void updateFolder(Folder folder){
         folderDAO.updateEmail(folder);
     }
 }

@@ -46,20 +46,23 @@ public class letter {
     }
 
     @RequestMapping(value = "/write",method = RequestMethod.POST)
-    @ResponseBody
     public String send(@RequestParam("receiver") String receiver,
                        @RequestParam("subject") String subject,
                        @RequestParam("content") String content,
                        @RequestParam("enclosure")String enclosures,
                        @RequestParam("type")String type,
-                       HttpServletRequest request){
+                       HttpServletRequest request,
+                       Model model){
+        Integer flag = 0; // 结果标记
         Integer dir_type = 0; //收件箱默认种别码为0
         if(type.equals("1")) { //草稿箱默认种别码为1
             dir_type = 1;
         }
         Users rece = userService.selectByEmail(receiver);
         if(rece == null){
-            return "联系人不存在";
+            flag = 0;
+            model.addAttribute("flag",flag);
+            return "reback";
         }
         //存入邮件
         Users sender = (Users) request.getSession().getAttribute("user");
@@ -77,10 +80,13 @@ public class letter {
             }
         }
         if(type.equals("0")){   //种别码为0时直接发送邮件
-            return "发送成功";
+            flag = 1;
+            model.addAttribute("flag",flag);
         }else{  // 草稿存储完毕
-            return "草稿存储完毕";
+            flag = 2;
+            model.addAttribute("flag",flag);
         }
+        return "reback";
     }
 
     @RequestMapping(value = "/inbox",method = RequestMethod.GET)
@@ -99,11 +105,24 @@ public class letter {
     }
 
     @RequestMapping(value = "/getEmailById",method = RequestMethod.GET)
-    public String getEmailById(@Param("id") Integer id, Model model){
+    public String getEmailById(HttpServletRequest request,
+                               @Param("id") Integer id,
+                               Model model){
         EmailItem emailItem = emailService.getEmailById(id);
+        Integer type = 0;
+        String referer = request.getHeader("Referer");
+        referer = referer.substring(referer.lastIndexOf("/")+1,referer.length());
+        if(referer.equals("inbox")){
+            type = 1;          // 收件箱
+        }else if(referer.equals("star")){
+            type = 2;          // 星标邮件
+        }else if(referer.equals("garbage")){
+            type = 3;          // 垃圾箱
+        }
         if(emailItem.getIs_read() == false){
             emailService.readEmail(id);
         }
+        model.addAttribute("type",type);
         model.addAttribute("emailItem",emailItem);
         return "EmailDetail";
     }

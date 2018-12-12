@@ -49,9 +49,7 @@ public class UploadAndDownload {
     }
 
     @RequestMapping(value="/download",method=RequestMethod.GET)
-    public void download(
-            HttpServletRequest request,
-            HttpServletResponse response,
+    public void download(HttpServletResponse response,
             @RequestParam("id") Integer id) throws IOException{
         Files files = filesService.getFileById(id);
         if(files == null){
