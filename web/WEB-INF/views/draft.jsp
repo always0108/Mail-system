@@ -43,7 +43,7 @@
             <a href="/letter/write">
                 <li>写信</li>
             </a>
-            <a href="/letter/inbox">
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收信</li>
             </a>
             <a href="/contact/getContacts">
@@ -54,13 +54,16 @@
         <hr style="background:rgb(202, 201, 201)">
 
         <ul>
-            <a href="/letter/inbox">
+            <a href="/letter/sent">
+                <li>已发送</li>
+            </a>
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收件箱</li>
             </a>
             <a href="/letter/star">
                 <li>星标邮件</li>
             </a>
-            <a href="">
+            <a href="/letter/draft">
                 <li>草稿箱</li>
             </a>
             <a href="/letter/garbage">
@@ -73,20 +76,14 @@
     </div>
     <div class="center">
         <span>
-                        收件箱 (共 ${emailItems.size()} 封，其中未读邮件 ${unReadSum} 封)
-                    </span>
+            草稿箱 (共 ${emailItems.size()} 封邮件)
+        </span>
         <c:if test="${not empty emailItems}">
             <!-- 功能按钮 -->
             <div style="margin-top: 20px">
-                <form id="funForm" class="functionButton" action="/letter/manageCheckedEmail" method="post">
+                <form id="funForm" class="functionButton" action="/letter/manageDraft" method="post">
                     <button type="button" class="btn btn-sm" onclick="manageEmail(1)">删除</button>
-                    <button type="button" class="btn btn-sm" onclick="manageEmail(2)">星标</button>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
-                            移动到...
-                            <span class="caret"></span>
-                        </button>
-                    </div>
+                    <button type="button" class="btn btn-sm" onclick="manageEmail(2)">发送</button>
 
                     <input type="hidden" id="checkedList" name="checkedList">
                     <input type="hidden" id="type" name="type">
@@ -102,9 +99,9 @@
                             </div>
                         </th>
                         <th width="10%"></th>
-                        <th width="20%">发件人</th>
+                        <th width="20%">收件人</th>
+                        <th width="20%">邮箱地址</th>
                         <th width="20%">主题</th>
-                        <th width="20%">时间</th>
                         <th width="10%"></th>
                     </tr>
                     <c:forEach items="${emailItems}" var="emailItem">
@@ -115,39 +112,13 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="/letter/getEmailById?id=${emailItem.id}">
-                                    <img src="../../resources/assets/email.png" style="display:inline-block;width:20%">
+                                <a href="/letter/modify?id=${emailItem.id}">
+                                    <img src="../../resources/assets/modify.png" style="display:inline-block;width:20%">
                                 </a>
                             </td>
-                            <c:choose>
-                                <c:when test="${emailItem.is_read == false}">
-                                    <td style="font-weight: bold">${emailItem.sender} (${emailItem.email_address})</td>
-                                    <td style="font-weight: bold">${emailItem.subject}</td>
-                                    <td style="font-weight: bold">${emailItem.time}</td>
-                                </c:when>
-
-                                <c:when test="${emailItem.is_read == true}">
-                                    <td style="color: #4e555b">${emailItem.sender} (${emailItem.email_address})</td>
-                                    <td style="color: #4e555b">${emailItem.subject}</td>
-                                    <td style="color: #4e555b">${emailItem.time}</td>
-                                </c:when>
-                            </c:choose>
-
-                            <c:choose>
-                                <c:when test="${emailItem.star == false}">
-                                    <td>
-                                        <img src="../../resources/assets/unstar.png" style="display:inline-block;width:20%">
-                                    </td>
-                                </c:when>
-
-                                <c:when test="${emailItem.star == true}">
-                                    <td>
-                                        <img src="../../resources/assets/star.png" style="display:inline-block;width:20%">
-                                    </td>
-                                </c:when>
-                            </c:choose>
-
-
+                            <td>${emailItem.receiver}</td>
+                            <td>${emailItem.rece_email}</td>
+                            <td>${emailItem.subject}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -203,6 +174,5 @@
         }
     }
 </script>
-
 </body>
 </html>

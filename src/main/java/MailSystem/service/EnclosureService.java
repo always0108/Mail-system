@@ -22,4 +22,7 @@ public interface EnclosureService {
 
     //删除附件
     void deleteEnclosure(Integer id);
+
+    //根据文件删除附件
+    void deleteEnclosureByFileId(Integer file_id);
 }

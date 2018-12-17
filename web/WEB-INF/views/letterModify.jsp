@@ -88,28 +88,46 @@
     </div>
     <div class="center">
         <div class="col-10">
-            <form method="post" action="/letter/write" id="letterForm">
+            <form method="post" action="/letter/modify" id="letterForm">
+                <input type="hidden" name="id" value="${emailItem.id}">
                 <div style="margin: 30px 20px">
                     <div class="form-group row">
                         <label for="receiver" class="col-1 col-form-label">收件人</label>
                         <div class="col-10">
-                            <input type="text" class="form-control" id="receiver" name="receiver">
+                            <input type="text" class="form-control" id="receiver" name="receiver" value="${emailItem.rece_email}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="subject" class="col-1 col-form-label">主题</label>
                         <div class="col-10">
-                            <input type="text" class="form-control" id="subject" name="subject">
+                            <input type="text" class="form-control" id="subject" name="subject" value="${emailItem.subject}">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="body" class="col-1 col-form-label">正文</label>
                         <div class="col-10">
-                            <textarea name="content" class="form-control" rows="10" form="letterForm" id="body" placeholder="在此输入文本"></textarea>
+                            <textarea name="content" class="form-control" rows="10" form="letterForm" id="body">${emailItem.content}</textarea>
                         </div>
                     </div>
+
+                    <c:if test="${not empty emailItem.enclosures}">
+                        <div class="form-group row">
+                            <label class="col-1 col-form-label">旧附件</label>
+                            <div class="col-10">
+                                <ul>
+                                    <c:forEach var="enclosure" items="${emailItem.enclosures}">
+                                        <li style="list-style: none">
+                                            <img src="../../resources/assets/file.png" alt="文件图标" style="width:20px;height:20px">
+                                            <span style="display: inline-block;min-width: 150px">${enclosure.name}</span>
+                                            <a href="#" style="color: black" id="${enclosure.id}" name="a_list">删除</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </c:if>
 
                     <input type="hidden" id="enclosure" name="enclosure">
                     <input type="hidden" id="type" name="type">
@@ -119,7 +137,7 @@
             <form class="form" action="#" method="post" enctype="multipart/form-data"  id="pollutionForm">
                 <div style="margin: 30px 20px">
                     <div class="form-group row">
-                        <label class="col-1 col-form-label">附件</label>
+                        <label class="col-1 col-form-label">新附件</label>
                         <!-- 注意事项：Input type类型为file class为样式 id随意 name随意
                          multiple（如果是要多图上传一定要加上，不加的话每次只能选中一张图）-->
                         <div class="col-10">
@@ -152,6 +170,23 @@
 </div>
 
 <script type="text/javascript">
+    window.onload = function () {
+        var aA = document.getElementsByName("a_list");
+        for (var i = 0; i < aA.length; i++){
+            aA[i].onclick = function () {
+                this.parentNode.style.display = 'none';
+                $.ajax({
+                    url: '/letter/deleteEnclosure?id='+this.id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(result) {
+                    }
+                });
+            }
+        }
+    }
+
+
     var fileData = new Array(); //多图上传返回的图片属性接受数组
 
     $("#img").fileinput({

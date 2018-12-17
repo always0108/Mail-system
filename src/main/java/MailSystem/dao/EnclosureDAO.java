@@ -25,6 +25,10 @@ public interface EnclosureDAO {
     @Delete("delete from enclosure where email_id = #{email_id}")
     void deleteEnclosureByEmail(Integer email_id);
 
+    //根据文件删除附件
+    @Delete("delete from enclosure where file_id = #{file_id}")
+    void deleteEnclosureByFileId(Integer file_id);
+
     //新增附件
     @Insert("insert into enclosure(email_id,file_id) values " +
             "(#{email_id},#{file_id})")

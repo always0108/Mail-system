@@ -23,6 +23,7 @@ create TABLE email (
   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '邮件id',
   send_id int(11) COMMENT '发件人id',
   receive_id int(11) COMMENT '收件人id',
+  pre_dir_id int(11) COMMENT '先前所属文件夹id',
   dir_id int(11) COMMENT '所属文件夹id',
   subject varchar(255) COMMENT '主题',
   content varchar(2000) COMMENT '邮件内容', 
@@ -50,4 +51,9 @@ create TABLE folder (
   id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '文件夹id',
   name varchar(127) NOT NULL COMMENT '文件夹名',
   owner_id int(11) NOT NULL COMMENT '所属者id'
-) ENGINE=InnoDB; 
+) ENGINE=InnoDB;
+
+-- 插入数据
+insert into folder(name,owner_id) values('收件箱',0);
+insert into folder(name,owner_id) values('草稿箱',0);
+insert into folder(name,owner_id) values('垃圾箱',0);

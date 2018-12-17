@@ -75,56 +75,34 @@
         </ul>
     </div>
     <div class="center">
-        <div style="float: left">
-            <div style="margin: 20px">
-                <form class="form-inline" method="post" action="/contact/searchContacts">
-                    <a href="/contact/contactAdd">
-                        <button type="button" class="btn btn-primary" style="margin-right: 50px">添加</button>
-                    </a>
+        <span>
+            所有已发送邮件 (共 ${emailItems.size()} 封)
+        </span>
 
-                    <input type="text" class="col-6 form-control" style="margin-right: 10px" id="key" name="key" placeholder="请输入关键字">
-                    <button type="submit" class="btn btn-primary">搜索</button>
-                </form>
-            </div>
-
-            <div style="margin: 20px">${note}</div>
-
-            <div style="margin: 20px">
-                <c:if test="${empty contacts}">
-                    暂时没有相应联系人
-                </c:if>
-
-                <c:if test="${not empty contacts}">
-                    <table>
+        <c:if test="${not empty emailItems}">
+            <div class="amail" style="margin-top: 20px">
+                <table class="table">
+                    <tr>
+                        <th width="20%">收件人</th>
+                        <th width="20%">邮件地址</th>
+                        <th width="20%">主题</th>
+                        <th width="20%">时间</th>
+                    </tr>
+                    <c:forEach items="${emailItems}" var="emailItem">
                         <tr>
-                            <th style="font-size: larger">姓名</th>
-                            <th style="font-size: larger">邮箱地址</th>
-                            <th style="font-size: larger">操作</th>
+                            <td>${emailItem.receiver}</td>
+                            <td>${emailItem.rece_email}</td>
+                            <td>${emailItem.subject}</td>
+                            <td>${emailItem.time}</td>
                         </tr>
-                        <c:forEach items="${contacts}" var="contact">
-                            <tr>
-                                <td width="200px" height="50px">${contact.name}</td>
-                                <td width="200px" height="50px">${contact.email_address}</td>
-                                <td width="200px" height="50px">
-                                    <a href="/contact/contactDelete?email=${contact.email_address}">
-                                        <button type="button" class="btn btn-danger">删除</button>
-                                    </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </c:if>
+                    </c:forEach>
+                </table>
             </div>
-        </div>
+        </c:if>
+
         <!-- <%--footer--%> -->
         <div class="foot">版权所有© Copyright 2006-2018 LM</div>
     </div>
 </div>
-
-<script type="application/javascript">
-    function contactDelete(email) {
-        alert("email");
-    }
-</script>
 </body>
 </html>

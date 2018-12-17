@@ -13,6 +13,23 @@
     <script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
 
     <link href="../../resources/hisindex.css" rel="stylesheet">
+
+    <style>
+        .a1{
+            text-decoration:none;
+            color: black;
+            min-width: 30px;
+        }
+        .a1:link{	/*默认状态*/
+            color: orange;
+            text-decoration:none;
+        }
+        .a1:hover{	/*悬浮状态*/
+            color: blue;
+            background-color: #6c757d;
+            text-decoration:none;
+        }
+    </style>
 </head>
 
 <body>
@@ -76,18 +93,35 @@
     </div>
     <div class="center">
         <span>
-                        所有星标邮件 (共 ${emailItems.size()} 封)
-                    </span>
-
+            ${ThisFolder.name}(共 ${emailItems.size()} 封，其中未读邮件 ${unReadSum} 封)
+        </span>
         <c:if test="${not empty emailItems}">
             <!-- 功能按钮 -->
             <div style="margin-top: 20px">
-                <form id="funForm" class="functionButton" action="/letter/cancelStarCheckedEmail" method="post">
-                    <button type="button" class="btn btn-sm" onclick="cancelStar()">取消星标</button>
+                <form id="funForm" class="functionButton" action="/folder/manageCheckedEmail" method="post">
+                    <button type="button" class="btn btn-sm" onclick="manageEmail(1,${ThisFolder.id},0)">删除</button>
+                    <button type="button" class="btn btn-sm" onclick="manageEmail(2,${ThisFolder.id},0)">星标</button>
+                    <button type="button" class="btn btn-sm" onclick="manageEmail(3,${ThisFolder.id},0)">取消星标</button>
+                    <button type="button" class="btn btn-sm" onclick="manageEmail(4,${ThisFolder.id},0)">全部已读</button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                            移动到...
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <c:forEach items="${folders}" var="folder">
+                                <li style="min-width: 30px"><a class="a1" href="#" onclick="manageEmail(5,${ThisFolder.id},${folder.id})">${folder.name}</a></li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+
                     <input type="hidden" id="checkedList" name="checkedList">
                     <input type="hidden" id="type" name="type">
+                    <input type="hidden" id="folder" name="folder">
+                    <input type="hidden" id="currentFolder" name="currentFolder">
                 </form>
             </div>
+
             <div class="amail">
                 <table class="table">
                     <tr>
@@ -141,6 +175,8 @@
                                     </td>
                                 </c:when>
                             </c:choose>
+
+
                         </tr>
                     </c:forEach>
                 </table>
@@ -150,10 +186,6 @@
         <!-- <%--footer--%> -->
         <div class="foot">版权所有© Copyright 2006-2018 LM</div>
     </div>
-
-
-
-
 </div>
 
 <script type="text/javascript">
@@ -191,13 +223,17 @@
         }
     }
 
-    function cancelStar() {
+    function manageEmail(type,currentFolder,folderId) {
         checked_list = "";
         findChecked();
         if(checked_list != ""){
+            $("#type").val(type);
+            $("#currentFolder").val(currentFolder);
+            $("#folder").val(folderId);
             $("#funForm").submit();
         }
     }
 </script>
+
 </body>
 </html>

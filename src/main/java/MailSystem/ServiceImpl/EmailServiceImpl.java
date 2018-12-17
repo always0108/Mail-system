@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -36,10 +37,17 @@ public class EmailServiceImpl implements EmailService {
         Email email = emailDAO.getEmailById(id);
         List<Enclosure> enclosures = enclosureService.getEnclosureListByEmail(id);
         EmailItem emailItem = new EmailItem();
+
+        //发送者信息
         Users sender = userService.selectById(email.getSend_id());
-        emailItem.setId(email.getId());
         emailItem.setSender(sender.getName());
         emailItem.setEmail_address(sender.getEmail_address());
+        //接收者信息
+        Users receiver = userService.selectById(email.getReceive_id());
+        emailItem.setReceiver(receiver.getName());
+        emailItem.setRece_email(receiver.getEmail_address());
+
+        emailItem.setId(email.getId());
         emailItem.setSubject(email.getSubject());
         emailItem.setContent(email.getContent());
         emailItem.setIs_read(email.getIs_read());
@@ -60,17 +68,26 @@ public class EmailServiceImpl implements EmailService {
         return  emailItem;
     }
 
+    public Email getOriginalEmailById(Integer id){
+        return emailDAO.getEmailById(id);
+    }
+
     //根据用户和文件夹获取相应邮件
     public List<EmailItem> getReceivedEmailByDir(Integer receive_id,
                                       Integer dir_id){
         List<Email> emails = emailDAO.getReceivedEmailByDir(receive_id,dir_id);
         List<EmailItem> emailItems = new ArrayList<>();
         for(Email email:emails){
-            Users sender = userService.selectById(email.getSend_id());
             EmailItem emailItem = new EmailItem();
             emailItem.setId(email.getId());
+
+            Users sender = userService.selectById(email.getSend_id());
+            Users receiver = userService.selectById(receive_id);
             emailItem.setSender(sender.getName());
             emailItem.setEmail_address(sender.getEmail_address());
+            emailItem.setReceiver(receiver.getName());
+            emailItem.setRece_email(receiver.getEmail_address());
+
             emailItem.setSubject(email.getSubject());
             emailItem.setContent(email.getContent());
             emailItem.setIs_read(email.getIs_read());
@@ -83,8 +100,26 @@ public class EmailServiceImpl implements EmailService {
     }
 
     //根据用户获取所发送的邮件
-    public List<Email> getSendedEmail(Integer send_id){
-        return emailDAO.getSendedEmail(send_id);
+    public List<EmailItem> getSendedEmail(Integer send_id){
+        List<Email> emails = emailDAO.getSendedEmail(send_id);
+        List<EmailItem> emailItems = new ArrayList<>();
+        for(Email email:emails){
+            if(email.getDir_id() == 2)
+                continue;
+            EmailItem emailItem = new EmailItem();
+            emailItem.setId(email.getId());
+            Users receiver = userService.selectById(email.getReceive_id());
+            emailItem.setReceiver(receiver.getName());
+            emailItem.setRece_email(receiver.getEmail_address());
+            emailItem.setSubject(email.getSubject());
+            emailItem.setContent(email.getContent());
+            emailItem.setIs_read(email.getIs_read());
+            emailItem.setStar(email.getStar());
+            SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+            emailItem.setTime(df.format(email.getTime()));
+            emailItems.add(emailItem);
+        }
+        return emailItems;
     }
 
     //新增邮件
@@ -110,8 +145,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     //移动邮件
-    public void moveEmail(Integer id, Integer dir_id){
-        emailDAO.moveEmail(id,dir_id);
+    public void moveEmail(Integer id, Integer pre_dir_id, Integer dir_id){
+        emailDAO.moveEmail(id,pre_dir_id,dir_id);
     }
 
     //星标邮件
@@ -127,5 +162,42 @@ public class EmailServiceImpl implements EmailService {
     //标为已读
     public void readEmail(Integer id){
         emailDAO.readEmail(id);
+    }
+
+
+    //更新邮件时间
+    public void updateTime(Integer id, Date time){
+        emailDAO.updateTime(id,time);
+    }
+
+    //根据发送者和文件夹获取相应邮件
+    public List<EmailItem> getSenderdEmailByDir(Integer send_id, Integer dir_id){
+        List<Email> emails = emailDAO.getsenderdEmailByDir(send_id,dir_id);
+        List<EmailItem> emailItems = new ArrayList<>();
+        for(Email email:emails){
+            EmailItem emailItem = new EmailItem();
+            emailItem.setId(email.getId());
+
+            Users receiver = userService.selectById(email.getReceive_id());
+            Users sender = userService.selectById(send_id);
+            emailItem.setReceiver(receiver.getName());
+            emailItem.setRece_email(receiver.getEmail_address());
+            emailItem.setSender(sender.getName());
+            emailItem.setEmail_address(sender.getEmail_address());
+
+            emailItem.setSubject(email.getSubject());
+            emailItem.setContent(email.getContent());
+            emailItem.setIs_read(email.getIs_read());
+            emailItem.setStar(email.getStar());
+            SimpleDateFormat df =new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+            emailItem.setTime(df.format(email.getTime()));
+            emailItems.add(emailItem);
+        }
+        return emailItems;
+    }
+
+    //更新邮件内容
+    public void updateEmail(Email email){
+        emailDAO.updateEmail(email);
     }
 }

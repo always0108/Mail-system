@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/contact")
-public class contacts {
+public class Contact {
     @Autowired
     private ContactService contactService;
     @Autowired

@@ -1,6 +1,5 @@
 package MailSystem.model.ov;
 
-import MailSystem.model.pv.Enclosure;
 import MailSystem.model.pv.Files;
 
 import java.util.List;
@@ -10,7 +9,11 @@ public class EmailItem {
 
     private String sender;
 
+    private String receiver;
+
     private String email_address;
+
+    private String rece_email;
 
     private String subject;
 
@@ -25,6 +28,14 @@ public class EmailItem {
     private List<Files> enclosures;
 
     public EmailItem() {
+    }
+
+    public String getRece_email() {
+        return rece_email;
+    }
+
+    public void setRece_email(String rece_email) {
+        this.rece_email = rece_email;
     }
 
     public Integer getId() {
@@ -97,5 +108,13 @@ public class EmailItem {
 
     public void setEnclosures(List<Files> enclosures) {
         this.enclosures = enclosures;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 }

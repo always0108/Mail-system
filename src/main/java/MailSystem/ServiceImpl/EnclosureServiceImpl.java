@@ -41,4 +41,9 @@ public class EnclosureServiceImpl implements EnclosureService {
     public void deleteEnclosure(Integer id) {
         enclosureDAO.deleteEnclosure(id);
     }
+
+    //根据文件删除附件
+    public void deleteEnclosureByFileId(Integer file_id){
+        enclosureDAO.deleteEnclosureByFileId(file_id);
+    }
 }

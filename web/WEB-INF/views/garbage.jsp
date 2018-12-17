@@ -43,7 +43,7 @@
             <a href="/letter/write">
                 <li>写信</li>
             </a>
-            <a href="/letter/inbox">
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收信</li>
             </a>
             <a href="/contact/getContacts">
@@ -54,13 +54,16 @@
         <hr style="background:rgb(202, 201, 201)">
 
         <ul>
-            <a href="/letter/inbox">
+            <a href="/letter/sent">
+                <li>已发送</li>
+            </a>
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收件箱</li>
             </a>
             <a href="/letter/star">
                 <li>星标邮件</li>
             </a>
-            <a href="">
+            <a href="/letter/draft">
                 <li>草稿箱</li>
             </a>
             <a href="/letter/garbage">
@@ -73,9 +76,9 @@
     </div>
     <div class="center">
         <span>
-                        垃圾箱 (共 ${emailItems.size()} 封邮件)
-                    </span>
-        <c:if test="${not empty emailItems}">
+            垃圾箱 (共 ${sendList.size()+receiveList.size()} 封邮件)
+        </span>
+        <c:if test="${sendList.size()+receiveList.size() != 0}">
             <!-- 功能按钮 -->
             <div style="margin-top: 20px">
                 <form id="funForm" class="functionButton" action="/letter/manageGarbage" method="post">
@@ -96,34 +99,40 @@
                             </div>
                         </th>
                         <th width="10%"></th>
-                        <th width="20%">发件人</th>
+                        <th width="20%">发（收）件人</th>
+                        <th width="20%">邮箱地址</th>
                         <th width="20%">主题</th>
-                        <th width="20%">时间</th>
                         <th width="10%"></th>
                     </tr>
-                    <c:forEach items="${emailItems}" var="emailItem">
+                    <c:forEach items="${receiveList}" var="receiveItem">
                         <tr>
                             <td>
                                 <div class="checkbox disabled">
-                                    <label><input type="checkbox" value="${emailItem.id}" name="chk_list"></label>
+                                    <label><input type="checkbox" value="${receiveItem.id}" name="chk_list"></label>
                                 </div>
                             </td>
                             <td>
                                 <img src="../../resources/assets/email.png" style="display:inline-block;width:20%">
                             </td>
-                            <c:choose>
-                                <c:when test="${emailItem.is_read == false}">
-                                    <td style="font-weight: bold">${emailItem.sender} (${emailItem.email_address})</td>
-                                    <td style="font-weight: bold">${emailItem.subject}</td>
-                                    <td style="font-weight: bold">${emailItem.time}</td>
-                                </c:when>
+                            <td>${receiveItem.sender}</td>
+                            <td>${receiveItem.email_address}</td>
+                            <td>${receiveItem.subject}</td>
+                        </tr>
+                    </c:forEach>
 
-                                <c:when test="${emailItem.is_read == true}">
-                                    <td style="color: #4e555b">${emailItem.sender} (${emailItem.email_address})</td>
-                                    <td style="color: #4e555b">${emailItem.subject}</td>
-                                    <td style="color: #4e555b">${emailItem.time}</td>
-                                </c:when>
-                            </c:choose>
+                    <c:forEach items="${sendList}" var="sendItem">
+                        <tr>
+                            <td>
+                                <div class="checkbox disabled">
+                                    <label><input type="checkbox" value="${sendItem.id}" name="chk_list"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <img src="../../resources/assets/email.png" style="display:inline-block;width:20%">
+                            </td>
+                            <td style="color:orangered">${sendItem.receiver}</td>
+                            <td style="color:orangered">${sendItem.rece_email}</td>
+                            <td style="color:orangered">${sendItem.subject}</td>
                         </tr>
                     </c:forEach>
                 </table>

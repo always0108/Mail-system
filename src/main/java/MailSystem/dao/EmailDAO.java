@@ -4,6 +4,7 @@ import MailSystem.model.pv.Email;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Mapper
@@ -20,13 +21,21 @@ public interface EmailDAO {
             @Param("receive_id")Integer receive_id,
             @Param("dir_id")Integer dir_id);
 
+
+    //根据发送者和文件夹获取相应邮件
+    @Select("select * from email where send_id = #{send_id} and " +
+            "dir_id = #{dir_id} order by time desc")
+    List<Email> getsenderdEmailByDir(
+            @Param("send_id")Integer send_id,
+            @Param("dir_id")Integer dir_id);
+
     //根据用户获取所发送的邮件
     @Select("select * from email where send_id = #{send_id}")
     List<Email> getSendedEmail(Integer send_id);
 
     //新增邮件
-    @Insert("insert into email(send_id,receive_id,dir_id,subject,content,is_read,star,time) values " +
-            "(#{send_id},#{receive_id},#{dir_id},#{subject},#{content},FALSE,FALSE,#{time})")
+    @Insert("insert into email(send_id,receive_id,pre_dir_id,dir_id,subject,content,is_read,star,time) values " +
+            "(#{send_id},#{receive_id},#{pre_dir_id},#{dir_id},#{subject},#{content},FALSE,FALSE,#{time})")
     @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
     void addEmail(Email email);
 
@@ -47,7 +56,21 @@ public interface EmailDAO {
     void deleteEmail(Integer id);
 
     //移动邮件
-    @Update("update email set dir_id = #{dir_id} where id = #{id}")
+    @Update("update email set pre_dir_id = #{pre_dir_id}," +
+            "                 dir_id = #{dir_id} where id = #{id}")
     void moveEmail(@Param("id")Integer id,
+                   @Param("pre_dir_id")Integer pre_dir_id,
                    @Param("dir_id")Integer dir_id);
+
+    //更新邮件时间
+    @Update("update email set time = #{time} where id = #{id}")
+    void updateTime(@Param("id")Integer id,
+                    @Param("time") Date time);
+
+    //更新邮件内容
+    @Update("update email set receive_id = #{receive_id}," +
+            "                 dir_id = #{dir_id},subject = #{subject}," +
+            "                 content = #{content},time = #{time} " +
+            "                 where id = #{id}")
+    void updateEmail(Email email);
 }

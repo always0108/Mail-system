@@ -55,7 +55,7 @@
             <a href="/letter/write">
                 <li>写信</li>
             </a>
-            <a href="/letter/inbox">
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收信</li>
             </a>
             <a href="/contact/getContacts">
@@ -66,13 +66,16 @@
         <hr style="background:rgb(202, 201, 201)">
 
         <ul>
-            <a href="/letter/inbox">
+            <a href="/letter/sent">
+                <li>已发送</li>
+            </a>
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收件箱</li>
             </a>
             <a href="/letter/star">
                 <li>星标邮件</li>
             </a>
-            <a href="">
+            <a href="/letter/draft">
                 <li>草稿箱</li>
             </a>
             <a href="/letter/garbage">
@@ -153,7 +156,7 @@
 
     $("#img").fileinput({
         language : 'zh',
-        uploadUrl : "file/upload",
+        uploadUrl : "/file/upload",
         showUpload: true, //是否显示上传按钮
         showRemove : true, //显示移除按钮
         showPreview : true, //是否显示预览

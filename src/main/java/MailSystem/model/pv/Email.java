@@ -9,6 +9,8 @@ public class Email {
 
     private Integer receive_id;
 
+    private Integer pre_dir_id;
+
     private Integer dir_id;
 
     private String subject;
@@ -24,13 +26,22 @@ public class Email {
     public Email() {
     }
 
-    public Email(Integer send_id, Integer receive_id, Integer dir_id, String subject, String content, Date time) {
+    public Email(Integer send_id, Integer receive_id, Integer pre_dir_id,Integer dir_id, String subject, String content, Date time) {
         this.send_id = send_id;
         this.receive_id = receive_id;
+        this.pre_dir_id = pre_dir_id;
         this.dir_id = dir_id;
         this.subject = subject;
         this.content = content;
         this.time = time;
+    }
+
+    public Integer getPre_dir_id() {
+        return pre_dir_id;
+    }
+
+    public void setPre_dir_id(Integer pre_dir_id) {
+        this.pre_dir_id = pre_dir_id;
     }
 
     public Integer getId() {

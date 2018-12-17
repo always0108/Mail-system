@@ -43,7 +43,7 @@
             <a href="/letter/write">
                 <li>写信</li>
             </a>
-            <a href="/letter/inbox">
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收信</li>
             </a>
             <a href="/contact/getContacts">
@@ -54,13 +54,16 @@
         <hr style="background:rgb(202, 201, 201)">
 
         <ul>
-            <a href="/letter/inbox">
+            <a href="/letter/sent">
+                <li>已发送</li>
+            </a>
+            <a href="/folder/FolderDetail?dir_id=1">
                 <li>收件箱</li>
             </a>
             <a href="/letter/star">
                 <li>星标邮件</li>
             </a>
-            <a href="">
+            <a href="/letter/draft">
                 <li>草稿箱</li>
             </a>
             <a href="/letter/garbage">
@@ -98,9 +101,6 @@
                 <div class="information" style="margin: 20px 80px">
                     <span style="color:green;font:15px bold;">您的邮件已发送</span><br>
                     <p>
-                        <a href=""><span style="text-decoration: underline;color:black">查看此邮件</span></a>
-                    </p>
-                    <p>
                         <a href="/main"><button class="btn btn-sm btn-primary">返回首页</button></a>
                         <a href="/letter/write"><button class="btn btn-sm btn-primary">再写一封</button></a>
                     </p>
@@ -114,9 +114,6 @@
 
                 <div class="information" style="margin: 20px 80px">
                     <span style="color:green;font:15px bold;">您的草稿保存成功</span><br>
-                    <p>
-                        <a href=""><span style="text-decoration: underline;color:black">查看此草稿</span></a>
-                    </p>
                     <p>
                         <a href="/main"><button class="btn btn-sm btn-primary">返回首页</button></a>
                         <a href="/letter/write"><button class="btn btn-sm btn-primary">再写一封</button></a>

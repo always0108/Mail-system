@@ -12,7 +12,7 @@
     <script src="../../resources/bootstrap/js/popper.js"></script>
     <script src="../../resources/bootstrap/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body style="background-image: url('../../resources/assets/bgPicture.jpeg');background-size: 100%">
   <div class="container-fluid">
 
     <%--Header--%>
